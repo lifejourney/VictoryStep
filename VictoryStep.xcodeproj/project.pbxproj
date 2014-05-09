@@ -12,13 +12,13 @@
 		438102681918E65100F21042 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102671918E65100F21042 /* UIKit.framework */; };
 		4381026E1918E65100F21042 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4381026C1918E65100F21042 /* InfoPlist.strings */; };
 		438102701918E65100F21042 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4381026F1918E65100F21042 /* main.m */; };
-		438102741918E65100F21042 /* VSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 438102731918E65100F21042 /* VSAppDelegate.m */; };
 		438102761918E65100F21042 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 438102751918E65100F21042 /* Images.xcassets */; };
 		4381027D1918E65100F21042 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4381027C1918E65100F21042 /* XCTest.framework */; };
 		4381027E1918E65100F21042 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102631918E65100F21042 /* Foundation.framework */; };
 		4381027F1918E65100F21042 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102671918E65100F21042 /* UIKit.framework */; };
 		438102871918E65100F21042 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 438102851918E65100F21042 /* InfoPlist.strings */; };
 		438102891918E65100F21042 /* VictoryStepTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 438102881918E65100F21042 /* VictoryStepTests.m */; };
+		43810295191CC9FB00F21042 /* VSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 43810294191CC9FB00F21042 /* VSAppDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,14 +40,14 @@
 		4381026D1918E65100F21042 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4381026F1918E65100F21042 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		438102711918E65100F21042 /* VictoryStep-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VictoryStep-Prefix.pch"; sourceTree = "<group>"; };
-		438102721918E65100F21042 /* VSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VSAppDelegate.h; sourceTree = "<group>"; };
-		438102731918E65100F21042 /* VSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VSAppDelegate.m; sourceTree = "<group>"; };
 		438102751918E65100F21042 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4381027B1918E65100F21042 /* VictoryStepTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VictoryStepTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4381027C1918E65100F21042 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		438102841918E65100F21042 /* VictoryStepTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VictoryStepTests-Info.plist"; sourceTree = "<group>"; };
 		438102861918E65100F21042 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		438102881918E65100F21042 /* VictoryStepTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VictoryStepTests.m; sourceTree = "<group>"; };
+		43810293191CC9FB00F21042 /* VSAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSAppDelegate.h; sourceTree = "<group>"; };
+		43810294191CC9FB00F21042 /* VSAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSAppDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +107,11 @@
 		438102691918E65100F21042 /* VictoryStep */ = {
 			isa = PBXGroup;
 			children = (
-				438102721918E65100F21042 /* VSAppDelegate.h */,
-				438102731918E65100F21042 /* VSAppDelegate.m */,
+				43810298191CCA5100F21042 /* Controller */,
+				43810297191CCA4B00F21042 /* View */,
+				43810296191CCA3900F21042 /* Model */,
+				43810299191CCA5800F21042 /* Category */,
+				43810292191CC9CE00F21042 /* AppDelegate */,
 				438102751918E65100F21042 /* Images.xcassets */,
 				4381026A1918E65100F21042 /* Supporting Files */,
 			);
@@ -142,6 +145,44 @@
 				438102851918E65100F21042 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		43810292191CC9CE00F21042 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				43810293191CC9FB00F21042 /* VSAppDelegate.h */,
+				43810294191CC9FB00F21042 /* VSAppDelegate.m */,
+			);
+			name = AppDelegate;
+			path = src/AppDelegate;
+			sourceTree = "<group>";
+		};
+		43810296191CCA3900F21042 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		43810297191CCA4B00F21042 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		43810298191CCA5100F21042 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		43810299191CCA5800F21042 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,7 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				438102701918E65100F21042 /* main.m in Sources */,
-				438102741918E65100F21042 /* VSAppDelegate.m in Sources */,
+				43810295191CC9FB00F21042 /* VSAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,6 +490,7 @@
 				4381028E1918E65100F21042 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4381028F1918E65100F21042 /* Build configuration list for PBXNativeTarget "VictoryStepTests" */ = {
 			isa = XCConfigurationList;
@@ -457,6 +499,7 @@
 				438102911918E65100F21042 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
