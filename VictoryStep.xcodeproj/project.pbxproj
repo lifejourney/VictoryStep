@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4377F3A81920B079001BFC33 /* VSRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4377F3A71920B079001BFC33 /* VSRootViewController.m */; };
 		438102641918E65100F21042 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102631918E65100F21042 /* Foundation.framework */; };
 		438102661918E65100F21042 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102651918E65100F21042 /* CoreGraphics.framework */; };
 		438102681918E65100F21042 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102671918E65100F21042 /* UIKit.framework */; };
@@ -32,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4377F3A61920B079001BFC33 /* VSRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VSRootViewController.h; path = src/Controller/VSRootViewController.h; sourceTree = "<group>"; };
+		4377F3A71920B079001BFC33 /* VSRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VSRootViewController.m; path = src/Controller/VSRootViewController.m; sourceTree = "<group>"; };
 		438102601918E65100F21042 /* VictoryStep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VictoryStep.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		438102631918E65100F21042 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		438102651918E65100F21042 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -174,6 +177,8 @@
 		43810298191CCA5100F21042 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				4377F3A61920B079001BFC33 /* VSRootViewController.h */,
+				4377F3A71920B079001BFC33 /* VSRootViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -285,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				438102701918E65100F21042 /* main.m in Sources */,
+				4377F3A81920B079001BFC33 /* VSRootViewController.m in Sources */,
 				43810295191CC9FB00F21042 /* VSAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,6 +415,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VictoryStep/VictoryStep-Prefix.pch";
 				INFOPLIST_FILE = "VictoryStep/VictoryStep-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -425,6 +432,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VictoryStep/VictoryStep-Prefix.pch";
 				INFOPLIST_FILE = "VictoryStep/VictoryStep-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
