@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		434DAB3C192C546200CA85A2 /* VSMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 434DAB3B192C546200CA85A2 /* VSMainMenuViewController.m */; };
-		4377F3A81920B079001BFC33 /* VSRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4377F3A71920B079001BFC33 /* VSRootViewController.m */; };
+		434DAB41192C8D6700CA85A2 /* VSMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 434DAB3E192C8D6700CA85A2 /* VSMainMenuViewController.m */; };
+		434DAB42192C8D6700CA85A2 /* VSRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 434DAB40192C8D6700CA85A2 /* VSRootViewController.m */; };
 		438102641918E65100F21042 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102631918E65100F21042 /* Foundation.framework */; };
 		438102661918E65100F21042 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102651918E65100F21042 /* CoreGraphics.framework */; };
 		438102681918E65100F21042 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102671918E65100F21042 /* UIKit.framework */; };
@@ -41,10 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		434DAB3A192C546200CA85A2 /* VSMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VSMainMenuViewController.h; path = src/Controller/VSMainMenuViewController.h; sourceTree = "<group>"; };
-		434DAB3B192C546200CA85A2 /* VSMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VSMainMenuViewController.m; path = src/Controller/VSMainMenuViewController.m; sourceTree = "<group>"; };
-		4377F3A61920B079001BFC33 /* VSRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VSRootViewController.h; path = src/Controller/VSRootViewController.h; sourceTree = "<group>"; };
-		4377F3A71920B079001BFC33 /* VSRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VSRootViewController.m; path = src/Controller/VSRootViewController.m; sourceTree = "<group>"; };
+		434DAB3D192C8D6700CA85A2 /* VSMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSMainMenuViewController.h; sourceTree = "<group>"; };
+		434DAB3E192C8D6700CA85A2 /* VSMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSMainMenuViewController.m; sourceTree = "<group>"; };
+		434DAB3F192C8D6700CA85A2 /* VSRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSRootViewController.h; sourceTree = "<group>"; };
+		434DAB40192C8D6700CA85A2 /* VSRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSRootViewController.m; sourceTree = "<group>"; };
 		438102601918E65100F21042 /* VictoryStep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VictoryStep.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		438102631918E65100F21042 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		438102651918E65100F21042 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -135,10 +135,8 @@
 			isa = PBXGroup;
 			children = (
 				43BE4F3D19236F5E00AF1BCA /* Component */,
-				43810298191CCA5100F21042 /* Controller */,
-				43810297191CCA4B00F21042 /* View */,
-				43810296191CCA3900F21042 /* Model */,
 				43810299191CCA5800F21042 /* Category */,
+				43810298191CCA5100F21042 /* UI */,
 				43810292191CC9CE00F21042 /* AppDelegate */,
 				438102751918E65100F21042 /* Images.xcassets */,
 				4381026A1918E65100F21042 /* Supporting Files */,
@@ -185,29 +183,16 @@
 			path = src/AppDelegate;
 			sourceTree = "<group>";
 		};
-		43810296191CCA3900F21042 /* Model */ = {
+		43810298191CCA5100F21042 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				434DAB3F192C8D6700CA85A2 /* VSRootViewController.h */,
+				434DAB40192C8D6700CA85A2 /* VSRootViewController.m */,
+				434DAB3D192C8D6700CA85A2 /* VSMainMenuViewController.h */,
+				434DAB3E192C8D6700CA85A2 /* VSMainMenuViewController.m */,
 			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		43810297191CCA4B00F21042 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		43810298191CCA5100F21042 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				4377F3A61920B079001BFC33 /* VSRootViewController.h */,
-				4377F3A71920B079001BFC33 /* VSRootViewController.m */,
-				434DAB3A192C546200CA85A2 /* VSMainMenuViewController.h */,
-				434DAB3B192C546200CA85A2 /* VSMainMenuViewController.m */,
-			);
-			name = Controller;
+			name = UI;
+			path = src/UI;
 			sourceTree = "<group>";
 		};
 		43810299191CCA5800F21042 /* Category */ = {
@@ -348,15 +333,15 @@
 			files = (
 				43DD66001924C6BF002DD423 /* VSSlidingAnimationController.m in Sources */,
 				438102701918E65100F21042 /* main.m in Sources */,
-				4377F3A81920B079001BFC33 /* VSRootViewController.m in Sources */,
-				434DAB3C192C546200CA85A2 /* VSMainMenuViewController.m in Sources */,
 				43DD66031925B682002DD423 /* VSPercentDrivenInteractiveTransition.m in Sources */,
+				434DAB41192C8D6700CA85A2 /* VSMainMenuViewController.m in Sources */,
 				43DD653C1924511B002DD423 /* VSSlidingViewController.m in Sources */,
 				43DD65FA1924BD9A002DD423 /* UIViewController+VSSlidingViewController.m in Sources */,
 				43810295191CC9FB00F21042 /* VSAppDelegate.m in Sources */,
 				43DD653F19245128002DD423 /* VSSlidingViewControllerDefine.m in Sources */,
 				43DD66061925DBF7002DD423 /* VSSlidingInteractiveTransition.m in Sources */,
 				43DD65F61924BCBE002DD423 /* VSSlidingSegue.m in Sources */,
+				434DAB42192C8D6700CA85A2 /* VSRootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
