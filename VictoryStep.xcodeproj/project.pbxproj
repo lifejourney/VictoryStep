@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		434DAB3C192C546200CA85A2 /* VSMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 434DAB3B192C546200CA85A2 /* VSMainMenuViewController.m */; };
 		4377F3A81920B079001BFC33 /* VSRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4377F3A71920B079001BFC33 /* VSRootViewController.m */; };
 		438102641918E65100F21042 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102631918E65100F21042 /* Foundation.framework */; };
 		438102661918E65100F21042 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102651918E65100F21042 /* CoreGraphics.framework */; };
@@ -20,6 +21,13 @@
 		438102871918E65100F21042 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 438102851918E65100F21042 /* InfoPlist.strings */; };
 		438102891918E65100F21042 /* VictoryStepTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 438102881918E65100F21042 /* VictoryStepTests.m */; };
 		43810295191CC9FB00F21042 /* VSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 43810294191CC9FB00F21042 /* VSAppDelegate.m */; };
+		43DD653C1924511B002DD423 /* VSSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD653B1924511B002DD423 /* VSSlidingViewController.m */; };
+		43DD653F19245128002DD423 /* VSSlidingViewControllerDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD653E19245128002DD423 /* VSSlidingViewControllerDefine.m */; };
+		43DD65F61924BCBE002DD423 /* VSSlidingSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD65F51924BCBE002DD423 /* VSSlidingSegue.m */; };
+		43DD65FA1924BD9A002DD423 /* UIViewController+VSSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD65F91924BD9A002DD423 /* UIViewController+VSSlidingViewController.m */; };
+		43DD66001924C6BF002DD423 /* VSSlidingAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD65FF1924C6BF002DD423 /* VSSlidingAnimationController.m */; };
+		43DD66031925B682002DD423 /* VSPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD66021925B682002DD423 /* VSPercentDrivenInteractiveTransition.m */; };
+		43DD66061925DBF7002DD423 /* VSSlidingInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD66051925DBF7002DD423 /* VSSlidingInteractiveTransition.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		434DAB3A192C546200CA85A2 /* VSMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VSMainMenuViewController.h; path = src/Controller/VSMainMenuViewController.h; sourceTree = "<group>"; };
+		434DAB3B192C546200CA85A2 /* VSMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VSMainMenuViewController.m; path = src/Controller/VSMainMenuViewController.m; sourceTree = "<group>"; };
 		4377F3A61920B079001BFC33 /* VSRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VSRootViewController.h; path = src/Controller/VSRootViewController.h; sourceTree = "<group>"; };
 		4377F3A71920B079001BFC33 /* VSRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VSRootViewController.m; path = src/Controller/VSRootViewController.m; sourceTree = "<group>"; };
 		438102601918E65100F21042 /* VictoryStep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VictoryStep.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +61,20 @@
 		438102881918E65100F21042 /* VictoryStepTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VictoryStepTests.m; sourceTree = "<group>"; };
 		43810293191CC9FB00F21042 /* VSAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSAppDelegate.h; sourceTree = "<group>"; };
 		43810294191CC9FB00F21042 /* VSAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSAppDelegate.m; sourceTree = "<group>"; };
+		43DD653A1924511B002DD423 /* VSSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSSlidingViewController.h; sourceTree = "<group>"; };
+		43DD653B1924511B002DD423 /* VSSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSSlidingViewController.m; sourceTree = "<group>"; };
+		43DD653D19245128002DD423 /* VSSlidingViewControllerDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSSlidingViewControllerDefine.h; sourceTree = "<group>"; };
+		43DD653E19245128002DD423 /* VSSlidingViewControllerDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSSlidingViewControllerDefine.m; sourceTree = "<group>"; };
+		43DD65F41924BCBE002DD423 /* VSSlidingSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSSlidingSegue.h; sourceTree = "<group>"; };
+		43DD65F51924BCBE002DD423 /* VSSlidingSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSSlidingSegue.m; sourceTree = "<group>"; };
+		43DD65F81924BD9A002DD423 /* UIViewController+VSSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+VSSlidingViewController.h"; sourceTree = "<group>"; };
+		43DD65F91924BD9A002DD423 /* UIViewController+VSSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+VSSlidingViewController.m"; sourceTree = "<group>"; };
+		43DD65FE1924C6BF002DD423 /* VSSlidingAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSSlidingAnimationController.h; sourceTree = "<group>"; };
+		43DD65FF1924C6BF002DD423 /* VSSlidingAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSSlidingAnimationController.m; sourceTree = "<group>"; };
+		43DD66011925B682002DD423 /* VSPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
+		43DD66021925B682002DD423 /* VSPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
+		43DD66041925DBF7002DD423 /* VSSlidingInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSSlidingInteractiveTransition.h; sourceTree = "<group>"; };
+		43DD66051925DBF7002DD423 /* VSSlidingInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSSlidingInteractiveTransition.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +134,7 @@
 		438102691918E65100F21042 /* VictoryStep */ = {
 			isa = PBXGroup;
 			children = (
+				43BE4F3D19236F5E00AF1BCA /* Component */,
 				43810298191CCA5100F21042 /* Controller */,
 				43810297191CCA4B00F21042 /* View */,
 				43810296191CCA3900F21042 /* Model */,
@@ -179,6 +204,8 @@
 			children = (
 				4377F3A61920B079001BFC33 /* VSRootViewController.h */,
 				4377F3A71920B079001BFC33 /* VSRootViewController.m */,
+				434DAB3A192C546200CA85A2 /* VSMainMenuViewController.h */,
+				434DAB3B192C546200CA85A2 /* VSMainMenuViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -188,6 +215,36 @@
 			children = (
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		43BE4F3D19236F5E00AF1BCA /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				43BE4F3E19236FD700AF1BCA /* SlidingViewController */,
+			);
+			name = Component;
+			path = src/Component;
+			sourceTree = "<group>";
+		};
+		43BE4F3E19236FD700AF1BCA /* SlidingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				43DD653A1924511B002DD423 /* VSSlidingViewController.h */,
+				43DD653B1924511B002DD423 /* VSSlidingViewController.m */,
+				43DD653D19245128002DD423 /* VSSlidingViewControllerDefine.h */,
+				43DD653E19245128002DD423 /* VSSlidingViewControllerDefine.m */,
+				43DD65F41924BCBE002DD423 /* VSSlidingSegue.h */,
+				43DD65F51924BCBE002DD423 /* VSSlidingSegue.m */,
+				43DD65F81924BD9A002DD423 /* UIViewController+VSSlidingViewController.h */,
+				43DD65F91924BD9A002DD423 /* UIViewController+VSSlidingViewController.m */,
+				43DD65FE1924C6BF002DD423 /* VSSlidingAnimationController.h */,
+				43DD65FF1924C6BF002DD423 /* VSSlidingAnimationController.m */,
+				43DD66011925B682002DD423 /* VSPercentDrivenInteractiveTransition.h */,
+				43DD66021925B682002DD423 /* VSPercentDrivenInteractiveTransition.m */,
+				43DD66041925DBF7002DD423 /* VSSlidingInteractiveTransition.h */,
+				43DD66051925DBF7002DD423 /* VSSlidingInteractiveTransition.m */,
+			);
+			path = SlidingViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,9 +346,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43DD66001924C6BF002DD423 /* VSSlidingAnimationController.m in Sources */,
 				438102701918E65100F21042 /* main.m in Sources */,
 				4377F3A81920B079001BFC33 /* VSRootViewController.m in Sources */,
+				434DAB3C192C546200CA85A2 /* VSMainMenuViewController.m in Sources */,
+				43DD66031925B682002DD423 /* VSPercentDrivenInteractiveTransition.m in Sources */,
+				43DD653C1924511B002DD423 /* VSSlidingViewController.m in Sources */,
+				43DD65FA1924BD9A002DD423 /* UIViewController+VSSlidingViewController.m in Sources */,
 				43810295191CC9FB00F21042 /* VSAppDelegate.m in Sources */,
+				43DD653F19245128002DD423 /* VSSlidingViewControllerDefine.m in Sources */,
+				43DD66061925DBF7002DD423 /* VSSlidingInteractiveTransition.m in Sources */,
+				43DD65F61924BCBE002DD423 /* VSSlidingSegue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +430,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"($SRC)/src/Component",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -398,6 +468,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"($SRC)/src/Component",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

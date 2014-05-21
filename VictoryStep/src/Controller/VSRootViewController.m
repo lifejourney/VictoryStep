@@ -7,20 +7,30 @@
 //
 
 #import "VSRootViewController.h"
-#import "VSAppDelegate.h"
+#import "VSSlidingViewController.h"
+
 
 @interface VSRootViewController ()
+
+@property (nonatomic, strong) VSSlidingViewController* slidingViewController;
+@property (nonatomic, strong) UIViewController* slidingTopViewController;
 
 @end
 
 @implementation VSRootViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype) init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    if (self = [super init])
+    {
+        self.slidingTopViewController = [[UIViewController alloc] init];
+        self.slidingTopViewController.view.backgroundColor = [UIColor redColor];
+        self.slidingViewController = [[VSSlidingViewController alloc] initWithTopViewController: self.slidingTopViewController];
+        
+        [self addChildViewController: self.slidingViewController];
+        [self.view addSubview: self.slidingViewController.view];
     }
+    
     return self;
 }
 
@@ -28,7 +38,7 @@
 {
     [super loadView];
     
-    self.title = @"Hello";
+    
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
@@ -36,17 +46,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    UILabel *textLabel = [[UILabel alloc] initWithFrame: CGRectMake(100, 100, 120, 20)];
-    textLabel.text = @"Hello";
-    
-    [self.view addSubview: textLabel];
-    
 }
 
 - (void) viewWillAppear: (BOOL)animated
 {
-    NSLog(@"viewWillAppear");
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,16 +57,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

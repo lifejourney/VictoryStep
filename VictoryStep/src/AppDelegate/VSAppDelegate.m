@@ -27,6 +27,7 @@
     
     // Override point for customization after application launch.
     VSRootViewController* rootViewController = [[VSRootViewController alloc] init];
+    rootViewController.edgesForExtendedLayout = UIRectEdgeNone;
     self.window.rootViewController = rootViewController;
     
     [self.window makeKeyAndVisible];
