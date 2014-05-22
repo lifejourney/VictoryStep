@@ -44,17 +44,20 @@
 
 
 @property (nonatomic, strong) UIViewController* topViewController;
-@property (nonatomic, strong) UIViewController* underViewController;
+@property (nonatomic, strong) UIViewController* leftSlideViewController;
+@property (nonatomic, strong) UIViewController* rightSlideViewController;
 
 @property (nonatomic, strong) NSString* topViewControllerStoryoardID;
-@property (nonatomic, strong) NSString* underViewControllerStoryoardID;
+@property (nonatomic, strong) NSString* leftSlideViewControllerStoryoardID;
+@property (nonatomic, strong) NSString* rightSlideViewControllerStoryoardID;
 
-@property (nonatomic, assign) CGFloat fixedTopViewLengthIfAnchored;
-@property (nonatomic, assign) CGFloat fixedTopViewLengthIfCentered;
+@property (nonatomic, assign) CGFloat fixedLeftSlideViewLengthIfAnchored;
+@property (nonatomic, assign) CGFloat fixedLeftSlideViewLengthIfCentered;
+@property (nonatomic, assign) CGFloat fixedRightSlideViewLengthIfAnchored;
+@property (nonatomic, assign) CGFloat fixedRightSlideViewLengthIfCentered;
 
 @property (nonatomic, assign) id<VSSlidingViewControllerDelegate> delegate;
 
-@property (nonatomic, assign) VSSlidingViewControllerAnchorPosition anchorPosition;
 @property (nonatomic, assign) VSSlidingViewControllerTopViewPosition currentTopViewPosition;
 
 @property (nonatomic, assign) VSSlidingViewControllerAnchoredGesture topViewAnchoredGestureMask;
@@ -64,8 +67,7 @@
 
 @property (nonatomic, assign) NSTimeInterval defaultTransitionDuration;
 
-+ (instancetype) slidingViewControllerWithTopViewController: (UIViewController*)topViewController;
-- (instancetype) initWithTopViewController: (UIViewController*)topViewController;
++ (instancetype) slidingViewController;
 
 - (void) anchorTopViewToLeftAnimated: (BOOL)animated;
 - (void) anchorTopViewToLeftAnimated: (BOOL)animated completionHandler: (void (^)())completionHandler;

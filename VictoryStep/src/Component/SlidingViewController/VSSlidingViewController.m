@@ -38,8 +38,11 @@
 @property (nonatomic, copy) void (^coordinatorCompletion)(id<UIViewControllerTransitionCoordinatorContext> context);
 @property (nonatomic, copy) void (^coordinatorInteractionEnded)(id<UIViewControllerTransitionCoordinatorContext> context);
 
+- (UIViewController*) intendedViewControllerForPosition: (VSSlidingViewControllerTopViewPosition)position;
+- (void) connectSubViews;
 - (CGRect) topViewCalculatedFrameForPosition: (VSSlidingViewControllerTopViewPosition)position;
-- (CGRect) underViewCalculatedFrameForPosition: (VSSlidingViewControllerTopViewPosition)position;
+- (CGRect) leftSlideViewCalculatedFrameForPosition: (VSSlidingViewControllerTopViewPosition)position;
+- (CGRect) rightSlideViewCalculatedFrameForPosition: (VSSlidingViewControllerTopViewPosition)position;
 - (void) moveTopViewToPosition: (VSSlidingViewControllerTopViewPosition)position
                       animated: (BOOL)animated
              completionHandler: (void(^)())completionHandler;
@@ -48,17 +51,17 @@
 
 @implementation VSSlidingViewController
 
-+ (instancetype) slidingViewControllerWithTopViewController: (UIViewController *)topViewController
++ (instancetype) slidingViewController
 {
-    return [[VSSlidingViewController alloc] initWithTopViewController: topViewController];
+    return [[VSSlidingViewController alloc] init];
 }
 
 - (void) setup
 {
-    self.fixedTopViewLengthIfAnchored = 0;
-    self.fixedTopViewLengthIfCentered = 100;
-    
-    self.anchorPosition = VSSlidingViewControllerAnchorPositionLeft;
+    self.fixedLeftSlideViewLengthIfAnchored = 100;
+    self.fixedLeftSlideViewLengthIfCentered = 0;
+    self.fixedRightSlideViewLengthIfAnchored = 100;
+    self.fixedRightSlideViewLengthIfCentered = 0;
     
     self.currentTopViewPosition = VSSlidingViewControllerTopViewPositionCentered;
     
@@ -85,11 +88,11 @@
     return self;
 }
 
-- (instancetype) initWithTopViewController: (UIViewController *)topViewController
+- (instancetype) init
 {
-    if (self = [self initWithNibName: nil bundle: nil])
+    if (self = [super init])
     {
-        self.topViewController = topViewController;
+        [self setup];
     }
     
     return self;
@@ -102,8 +105,11 @@
     if (self.topViewControllerStoryoardID)
         self.topViewController = [self.storyboard instantiateViewControllerWithIdentifier: self.topViewControllerStoryoardID];
     
-    if (self.underViewControllerStoryoardID)
-        self.underViewController = [self.storyboard instantiateViewControllerWithIdentifier: self.underViewControllerStoryoardID];
+    if (self.leftSlideViewControllerStoryoardID)
+        self.leftSlideViewController = [self.storyboard instantiateViewControllerWithIdentifier: self.leftSlideViewControllerStoryoardID];
+    
+    if (self.rightSlideViewController)
+        self.rightSlideViewController = [self.storyboard instantiateViewControllerWithIdentifier: self.rightSlideViewControllerStoryoardID];
 }
 
 - (void) viewDidLoad
@@ -112,14 +118,7 @@
     
     self.view.backgroundColor = [UIColor clearColor];
     
-    if (!self.topViewController)
-    {
-        [NSException raise: @"Missing topViewController" format: @"Set the topViewController before loading VSSlidingViewController"];
-    }
-    
-    self.topViewController.view.frame = [self topViewCalculatedFrameForPosition: self.currentTopViewPosition];
-    
-    [self.view addSubview: self.topViewController.view];
+    [self connectSubViews];
 }
 
 - (void) viewWillAppear: (BOOL)animated
@@ -127,7 +126,11 @@
     [super viewWillAppear: animated];
     
     [self.topViewController beginAppearanceTransition: YES animated: animated];
-    [self.underViewController beginAppearanceTransition: YES animated: animated];
+    
+    if (self.currentTopViewPosition == VSSlidingViewControllerTopViewPositionAnchoredLeft)
+        [self.rightSlideViewController beginAppearanceTransition: YES animated: animated];
+    else if (self.currentTopViewPosition == VSSlidingViewControllerTopViewPositionAnchoredRight)
+        [self.leftSlideViewController beginAppearanceTransition: YES animated: animated];
 }
 
 - (void) viewDidAppear: (BOOL)animated
@@ -135,7 +138,11 @@
     [super viewDidAppear: animated];
     
     [self.topViewController endAppearanceTransition];
-    [self.underViewController endAppearanceTransition];
+    
+    if (self.currentTopViewPosition == VSSlidingViewControllerTopViewPositionAnchoredLeft)
+        [self.rightSlideViewController endAppearanceTransition];
+    else if (self.currentTopViewPosition == VSSlidingViewControllerTopViewPositionAnchoredRight)
+        [self.leftSlideViewController endAppearanceTransition];
 }
 
 - (void) viewWillDisappear: (BOOL)animated
@@ -143,7 +150,11 @@
     [super viewWillDisappear: animated];
     
     [self.topViewController beginAppearanceTransition: NO animated: animated];
-    [self.underViewController beginAppearanceTransition: NO animated: animated];
+    
+    if (self.currentTopViewPosition == VSSlidingViewControllerTopViewPositionAnchoredLeft)
+        [self.rightSlideViewController beginAppearanceTransition: NO animated: animated];
+    else if (self.currentTopViewPosition == VSSlidingViewControllerTopViewPositionAnchoredRight)
+        [self.leftSlideViewController beginAppearanceTransition: NO animated: animated];
 }
 
 - (void) viewDidDisappear: (BOOL)animated
@@ -151,18 +162,27 @@
     [super viewDidDisappear: animated];
     
     [self.topViewController endAppearanceTransition];
-    [self.underViewController endAppearanceTransition];
+    
+    if (self.currentTopViewPosition == VSSlidingViewControllerTopViewPositionAnchoredLeft)
+        [self.rightSlideViewController endAppearanceTransition];
+    else if (self.currentTopViewPosition == VSSlidingViewControllerTopViewPositionAnchoredRight)
+        [self.leftSlideViewController endAppearanceTransition];
 }
 
 - (void) viewDidLayoutSubviews
 {
-    [super viewDidLayoutSubviews];
-    
-    self.topViewController.view.frame = [self topViewCalculatedFrameForPosition: self.currentTopViewPosition];
-    self.underViewController.view.frame = [self underViewCalculatedFrameForPosition: self.currentTopViewPosition];
-    
-    //TO-DO
-    self.gestureView.frame = self.topViewController.view.frame;
+    if (self.currentOperation == VSSlidingViewControllerOperationNone)
+    {
+        //TO-DO: ??
+        //[super viewDidLayoutSubviews];
+        
+        self.topViewController.view.frame = [self topViewCalculatedFrameForPosition: self.currentTopViewPosition];
+        self.leftSlideViewController.view.frame = [self leftSlideViewCalculatedFrameForPosition: self.currentTopViewPosition];
+        self.rightSlideViewController.view.frame = [self rightSlideViewCalculatedFrameForPosition: self.currentTopViewPosition];
+        
+        //TO-DO
+        self.gestureView.frame = self.topViewController.view.frame;
+    }
 }
 
 - (BOOL) shouldAutorotate
@@ -184,7 +204,8 @@
                                       fromViewController: (UIViewController *)fromViewController
                                               identifier:(NSString *)identifier
 {
-    if ([self.underViewController isMemberOfClass: [toViewController class]])
+    if ([self.leftSlideViewController isMemberOfClass: [toViewController class]] ||
+        [self.rightSlideViewController isMemberOfClass: [toViewController class]])
     {
         VSSlidingSegue* unwindSegue = [[VSSlidingSegue alloc] initWithIdentifier: identifier
                                                                           source: fromViewController
@@ -201,38 +222,12 @@
 
 - (UIViewController*) childViewControllerForStatusBarHidden
 {
-    UIViewController* vc;
-    
-    switch (self.currentTopViewPosition)
-    {
-        case VSSlidingViewControllerTopViewPositionCentered:
-            vc = self.topViewController;
-            break;
-            
-        default:
-            vc = self.underViewController;
-            break;
-    }
-    
-    return vc;
+    return [self intendedViewControllerForPosition: self.currentTopViewPosition];
 }
 
 - (UIViewController*) childViewControllerForStatusBarStyle
 {
-    UIViewController* vc;
-    
-    switch (self.currentTopViewPosition)
-    {
-        case VSSlidingViewControllerTopViewPositionCentered:
-            vc = self.topViewController;
-            break;
-            
-        default:
-            vc = self.underViewController;
-            break;
-    }
-    
-    return vc;
+    return [self intendedViewControllerForPosition: self.currentTopViewPosition];
 }
 
 - (id<UIViewControllerTransitionCoordinator>) transitionCoordinator
@@ -244,44 +239,63 @@
 
 - (void) setTopViewController: (UIViewController *)topViewController
 {
-    [_topViewController.view removeFromSuperview];
-    
-    [_topViewController willMoveToParentViewController: nil];
-    [_topViewController beginAppearanceTransition: NO animated: NO];
-    [_topViewController removeFromParentViewController];
-    [_topViewController endAppearanceTransition];
-    
-    _topViewController = topViewController;
-    
-    if (_topViewController)
+    if (_topViewController != topViewController)
     {
-        [self addChildViewController: _topViewController];
-        [_topViewController didMoveToParentViewController: self];
+        //TO-DO: ?? Could a view be added two or more super view? If could, what would happen for this involve?
+        [_topViewController.view removeFromSuperview];
         
-        if ([self isViewLoaded])
+        [_topViewController willMoveToParentViewController: nil];
+        [_topViewController beginAppearanceTransition: NO animated: NO];
+        [_topViewController removeFromParentViewController];
+        [_topViewController endAppearanceTransition];
+        
+        _topViewController = topViewController;
+        
+        if (_topViewController)
         {
-            [_topViewController beginAppearanceTransition: YES animated: NO];
-            [self.view addSubview: _topViewController.view];
-            [_topViewController endAppearanceTransition];
+            [self addChildViewController: _topViewController];
+            [_topViewController didMoveToParentViewController: self];
+            
+            [self connectSubViews];
         }
     }
 }
 
-- (void) setUnderViewController: (UIViewController *)underViewController
+- (void) setLeftSlideViewController: (UIViewController *)slideViewController
 {
-    [_underViewController.view removeFromSuperview];
+    [_leftSlideViewController.view removeFromSuperview];
     
-    [_underViewController willMoveToParentViewController: nil];
-    [_underViewController beginAppearanceTransition: NO animated: NO];
-    [_underViewController removeFromParentViewController];
-    [_underViewController endAppearanceTransition];
+    [_leftSlideViewController willMoveToParentViewController: nil];
+    [_leftSlideViewController beginAppearanceTransition: NO animated: NO];
+    [_leftSlideViewController removeFromParentViewController];
+    [_leftSlideViewController endAppearanceTransition];
     
-    _underViewController = underViewController;
+    _leftSlideViewController = slideViewController;
     
-    if (_underViewController)
+    if (_leftSlideViewController)
     {
-        [self addChildViewController: _topViewController];
-        [_topViewController didMoveToParentViewController: self];
+        [self addChildViewController: _leftSlideViewController];
+        [_leftSlideViewController didMoveToParentViewController: self];
+        
+        //?? should do something if [self isViewLoaded]??
+    }
+}
+
+- (void) setRightSlideViewController: (UIViewController *)slideViewController
+{
+    [_rightSlideViewController.view removeFromSuperview];
+    
+    [_rightSlideViewController willMoveToParentViewController: nil];
+    [_rightSlideViewController beginAppearanceTransition: NO animated: NO];
+    [_rightSlideViewController removeFromParentViewController];
+    [_rightSlideViewController endAppearanceTransition];
+    
+    _rightSlideViewController = slideViewController;
+    
+    if (_rightSlideViewController)
+    {
+        [self addChildViewController: _rightSlideViewController];
+        [_rightSlideViewController didMoveToParentViewController: self];
         
         //?? should do something if [self isViewLoaded]??
     }
@@ -483,8 +497,10 @@
     
     if ([key isEqualToString: kVSTransitionContextTopViewControllerKey])
         vc = self.topViewController;
-    else if ([key isEqualToString: kVSTransitionContextUnderViewControllerKey])
-        vc = self.underViewController;
+    else if ([key isEqualToString: kVSTransitionContextLeftSlideViewControllerKey])
+        vc = self.leftSlideViewController;
+    else if ([key isEqualToString: kVSTransitionContextLeftSlideViewControllerKey])
+        vc = self.rightSlideViewController;
     else if ([key isEqualToString: UITransitionContextFromViewControllerKey])
     {
         if (_currentOperation == VSSlidingViewControllerOperationAnchorToLeft ||
@@ -492,18 +508,24 @@
         {
             vc = self.topViewController;
         }
-        else if (_currentOperation == VSSlidingViewControllerOperationResetFromLeft ||
-                 _currentOperation == VSSlidingViewControllerOperationResetFromRight)
+        else if (_currentOperation == VSSlidingViewControllerOperationResetFromLeft)
         {
-            vc = self.underViewController;
+            vc = self.rightSlideViewController;
+        }
+        else if (_currentOperation == VSSlidingViewControllerOperationResetFromRight)
+        {
+            vc = self.leftSlideViewController;
         }
     }
     else if ([key isEqualToString: UITransitionContextToViewControllerKey])
     {
-        if (_currentOperation == VSSlidingViewControllerOperationAnchorToLeft ||
-            _currentOperation == VSSlidingViewControllerOperationAnchorToRight)
+        if (_currentOperation == VSSlidingViewControllerOperationAnchorToLeft)
         {
-            vc = self.underViewController;
+            vc = self.rightSlideViewController;
+        }
+        else if (_currentOperation == VSSlidingViewControllerOperationAnchorToRight)
+        {
+            vc = self.leftSlideViewController;
         }
         else if (_currentOperation == VSSlidingViewControllerOperationResetFromLeft ||
                  _currentOperation == VSSlidingViewControllerOperationResetFromRight)
@@ -512,16 +534,18 @@
         }
     }
     
-    return nil;
+    return vc;
 }
 
 - (CGRect) initialFrameForViewController: (UIViewController *)vc
 {
     CGRect frame = CGRectZero;
     
+    
     if (_currentOperation == VSSlidingViewControllerOperationAnchorToLeft ||
         _currentOperation == VSSlidingViewControllerOperationAnchorToRight)
     {
+        //TO-DO: how about the slidingView?
         if ([vc isEqual: self.topViewController])
             frame = [self topViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionCentered];
     }
@@ -529,15 +553,15 @@
     {
         if ([vc isEqual: self.topViewController])
             frame = [self topViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionAnchoredLeft];
-        else if ([vc isEqual: self.underViewController])
-            frame = [self underViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionAnchoredLeft];
+        else if ([vc isEqual: self.rightSlideViewController])
+            frame = [self rightSlideViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionAnchoredLeft];
     }
     else if (_currentOperation == VSSlidingViewControllerOperationResetFromRight)
     {
         if ([vc isEqual: self.topViewController])
             frame = [self topViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionAnchoredRight];
-        else if ([vc isEqual: self.underViewController])
-            frame = [self underViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionAnchoredRight];
+        else if ([vc isEqual: self.leftSlideViewController])
+            frame = [self leftSlideViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionAnchoredRight];
     }
     
     return frame;
@@ -551,19 +575,20 @@
     {
         if ([vc isEqual: self.topViewController])
             frame = [self topViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionAnchoredLeft];
-        else if ([vc isEqual: self.underViewController])
-            frame = [self underViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionAnchoredLeft];
+        else if ([vc isEqual: self.rightSlideViewController])
+            frame = [self rightSlideViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionAnchoredLeft];
     }
     else if (_currentOperation == VSSlidingViewControllerOperationAnchorToRight)
     {
         if ([vc isEqual: self.topViewController])
             frame = [self topViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionAnchoredRight];
-        else if ([vc isEqual: self.underViewController])
-            frame = [self underViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionAnchoredRight];
+        else if ([vc isEqual: self.leftSlideViewController])
+            frame = [self leftSlideViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionAnchoredRight];
     }
     else if (_currentOperation == VSSlidingViewControllerOperationResetFromLeft ||
              _currentOperation == VSSlidingViewControllerOperationResetFromRight)
     {
+        //TO-DO: how about the slidingView?
         if ([vc isEqual: self.topViewController])
             frame = [self topViewCalculatedFrameForPosition: VSSlidingViewControllerTopViewPositionCentered];
     }
@@ -663,6 +688,51 @@
 
 #pragma mark - Private
 
+- (UIViewController*) intendedViewControllerForPosition: (VSSlidingViewControllerTopViewPosition)position
+{
+    UIViewController* vc;
+    
+    switch (self.currentTopViewPosition)
+    {
+        case VSSlidingViewControllerTopViewPositionCentered:
+            vc = self.topViewController;
+            break;
+            
+        case VSSlidingViewControllerTopViewPositionAnchoredLeft:
+            vc = self.rightSlideViewController;
+            break;
+            
+        case VSSlidingViewControllerTopViewPositionAnchoredRight:
+            vc = self.leftSlideViewController;
+            break;
+            
+        default:
+            vc = nil;
+            break;
+    }
+    
+    return vc;
+}
+
+- (void) connectSubViews
+{
+    //TO-DO:
+    //1. remove previous view firstly
+    //2. make sure all required view be prepared
+    //3. how about changing slide VC
+    
+    if (self.isViewLoaded)
+    {
+        self.topViewController.view.frame = [self topViewCalculatedFrameForPosition: self.currentTopViewPosition];
+        
+        [_topViewController beginAppearanceTransition: YES animated: NO];
+        [self.view addSubview: self.topViewController.view];
+        [_topViewController endAppearanceTransition];
+        
+        [self moveTopViewToPosition: self.currentTopViewPosition animated: NO completionHandler: nil];
+    }
+}
+
 - (CGRect) frameFromDelegateForViewController: (UIViewController*)vc
                               topViewPosition: (VSSlidingViewControllerTopViewPosition)topViewPosition
 {
@@ -709,59 +779,25 @@
     return frame;
 }
 
+//TO-DO:
 - (CGRect) defaultTopViewCalculatedFrameForPosition: (VSSlidingViewControllerTopViewPosition)position
 {
     CGRect frame = self.view.bounds;
     
     frame = [self adjustForExtendedLayoutWithLayoutGuide: frame];
     
-    switch (self.anchorPosition)
-    {
-        case VSSlidingViewControllerAnchorPositionLeft:
-        case VSSlidingViewControllerAnchorPositionRight:
-        {
-            if (position == VSSlidingViewControllerTopViewPositionCentered)
-                frame.size.width = self.fixedTopViewLengthIfCentered;
-            else
-                frame.size.width = self.fixedTopViewLengthIfAnchored;
-            
-            break;
-        }
-            
-        default:
-            break;
-    }
-    
     switch (position)
     {
         case VSSlidingViewControllerTopViewPositionCentered:
-            if (self.anchorPosition == VSSlidingViewControllerAnchorPositionRight)
-            {
-                CGFloat remainWidth = self.view.bounds.size.width - self.fixedTopViewLengthIfCentered;
-                
-                if (remainWidth > 0)
-                    frame.origin.x += remainWidth;
-            }
+            frame.origin.x += self.fixedLeftSlideViewLengthIfCentered;
             break;
             
         case VSSlidingViewControllerTopViewPositionAnchoredLeft:
-            if (self.anchorPosition == VSSlidingViewControllerAnchorPositionLeft)
-            {
-                CGFloat hiddenWidth = frame.size.width - self.fixedTopViewLengthIfAnchored;
-                
-                if (hiddenWidth > 0)
-                    frame.origin.x -= hiddenWidth;
-            }
+            frame.origin.x -= self.fixedRightSlideViewLengthIfAnchored;
             break;
             
         case VSSlidingViewControllerTopViewPositionAnchoredRight:
-            if (self.anchorPosition == VSSlidingViewControllerAnchorPositionRight)
-            {
-                CGFloat width = self.view.frame.size.width - self.fixedTopViewLengthIfAnchored;
-                
-                if (width > 0)
-                    frame.origin.x += (width);
-            }
+            frame.origin.x += self.fixedLeftSlideViewLengthIfAnchored;
             break;
             
         default:
@@ -772,11 +808,38 @@
     return frame;
 }
 
--(CGRect) defaultUnderViewCalculatedFrame
+-(CGRect) defaultLeftSlideViewCalculatedFrame: (VSSlidingViewControllerTopViewPosition)position
 {
     CGRect frame = self.view.bounds;
     
     frame = [self adjustForExtendedLayoutWithLayoutGuide: frame];
+    
+    if (position != VSSlidingViewControllerTopViewPositionAnchoredRight)
+    {
+        frame.origin.x -= (self.fixedLeftSlideViewLengthIfAnchored - self.fixedLeftSlideViewLengthIfCentered);
+    }
+    
+    frame.size.width = self.fixedLeftSlideViewLengthIfAnchored;
+    
+    return frame;
+}
+
+-(CGRect) defaultRightSlideViewCalculatedFrame: (VSSlidingViewControllerTopViewPosition)position
+{
+    CGRect frame = self.view.bounds;
+    
+    frame = [self adjustForExtendedLayoutWithLayoutGuide: frame];
+    
+    if (position == VSSlidingViewControllerTopViewPositionAnchoredLeft)
+    {
+        frame.origin.x += (frame.size.width - self.fixedRightSlideViewLengthIfAnchored);
+    }
+    else
+    {
+        frame.origin.x += (frame.size.width - self.fixedRightSlideViewLengthIfCentered);
+    }
+    
+    frame.size.width = self.fixedRightSlideViewLengthIfAnchored;
     
     return frame;
 }
@@ -794,15 +857,29 @@
     return frame;
 }
 
-- (CGRect) underViewCalculatedFrameForPosition: (VSSlidingViewControllerTopViewPosition)position
+- (CGRect) leftSlideViewCalculatedFrameForPosition: (VSSlidingViewControllerTopViewPosition)position
 {
-    CGRect frame = [self frameFromDelegateForViewController: self.underViewController
+    CGRect frame = [self frameFromDelegateForViewController: self.leftSlideViewController
                                             topViewPosition: position];
     
     //Default layout
     if (CGRectIsInfinite(frame))
     {
-        frame = [self defaultUnderViewCalculatedFrame];
+        frame = [self defaultLeftSlideViewCalculatedFrame: position];
+    }
+    
+    return frame;
+}
+
+- (CGRect) rightSlideViewCalculatedFrameForPosition: (VSSlidingViewControllerTopViewPosition)position
+{
+    CGRect frame = [self frameFromDelegateForViewController: self.rightSlideViewController
+                                            topViewPosition: position];
+    
+    //Default layout
+    if (CGRectIsInfinite(frame))
+    {
+        frame = [self defaultRightSlideViewCalculatedFrame: position];
     }
     
     return frame;
@@ -834,42 +911,60 @@
             (self.currentTopViewPosition == VSSlidingViewControllerTopViewPositionAnchoredRight
              && operation == VSSlidingViewControllerOperationResetFromRight) ||
             (self.currentTopViewPosition == VSSlidingViewControllerTopViewPositionCentered
-             && (operation == VSSlidingViewControllerOperationAnchorToLeft ||
-                 operation == VSSlidingViewControllerOperationAnchorToRight)
-             && self.underViewController));
+             && ((operation == VSSlidingViewControllerOperationAnchorToLeft && self.rightSlideViewController) ||
+                 (operation == VSSlidingViewControllerOperationAnchorToRight && self.leftSlideViewController))));
 }
 
 - (void) beginAppearanceTransitionForOperation: (VSSlidingViewControllerOperation)operation
 {
-    if (operation == VSSlidingViewControllerOperationAnchorToLeft ||
-        operation == VSSlidingViewControllerOperationAnchorToRight)
+    if (operation == VSSlidingViewControllerOperationAnchorToLeft)
     {
-        [_underViewController beginAppearanceTransition: YES animated: _isAnimated];
+        [self.rightSlideViewController beginAppearanceTransition: YES animated: _isAnimated];
     }
-    else if (operation == VSSlidingViewControllerOperationResetFromLeft ||
-             operation == VSSlidingViewControllerOperationResetFromRight)
+    else if(operation == VSSlidingViewControllerOperationAnchorToRight)
     {
-        [_underViewController beginAppearanceTransition: NO animated: _isAnimated];
+        [self.leftSlideViewController beginAppearanceTransition: YES animated: _isAnimated];
+    }
+    else if (operation == VSSlidingViewControllerOperationResetFromLeft)
+    {
+        [self.rightSlideViewController beginAppearanceTransition: NO animated: _isAnimated];
+    }
+    else if (operation == VSSlidingViewControllerOperationResetFromRight)
+    {
+        [self.leftSlideViewController beginAppearanceTransition: NO animated: _isAnimated];
     }
 }
 
 - (void) endAppearanceTransitionForOperation: (VSSlidingViewControllerOperation)operation isCancelled: (BOOL)isCancelled
 {
-    if (isCancelled)
+    if (operation == VSSlidingViewControllerOperationAnchorToLeft)
     {
-        if (operation == VSSlidingViewControllerOperationAnchorToLeft ||
-            operation == VSSlidingViewControllerOperationAnchorToRight)
-        {
-            [_underViewController beginAppearanceTransition: NO animated: _isAnimated];
-        }
-        else if (operation == VSSlidingViewControllerOperationResetFromLeft ||
-                 operation == VSSlidingViewControllerOperationResetFromRight)
-        {
-            [_underViewController beginAppearanceTransition: YES animated: _isAnimated];
-        }
+        if (isCancelled)
+            [self.rightSlideViewController beginAppearanceTransition: NO animated: _isAnimated];
+        
+        [self.rightSlideViewController endAppearanceTransition];
     }
-    
-    [_underViewController endAppearanceTransition];
+    else if(operation == VSSlidingViewControllerOperationAnchorToRight)
+    {
+        if (isCancelled)
+            [self.leftSlideViewController beginAppearanceTransition: NO animated: _isAnimated];
+        
+        [self.leftSlideViewController endAppearanceTransition];
+    }
+    else if (operation == VSSlidingViewControllerOperationResetFromLeft)
+    {
+        if (isCancelled)
+            [self.rightSlideViewController beginAppearanceTransition: YES animated: _isAnimated];
+        
+        [self.rightSlideViewController endAppearanceTransition];
+    }
+    else if (operation == VSSlidingViewControllerOperationResetFromRight)
+    {
+        if (isCancelled)
+            [self.leftSlideViewController beginAppearanceTransition: NO animated: _isAnimated];
+        
+        [self.leftSlideViewController endAppearanceTransition];
+    }
 }
 
 - (void) animateCurrentOperation
@@ -958,7 +1053,81 @@
 
 - (void) updateTopViewGestures
 {
+    BOOL isTopViewAnchored = (_currentTopViewPosition == VSSlidingViewControllerTopViewPositionAnchoredLeft ||
+                              _currentTopViewPosition == VSSlidingViewControllerTopViewPositionAnchoredRight);
+    UIView* topView = self.topViewController.view;
     
+    if (isTopViewAnchored)
+    {
+        if (_topViewAnchoredGestureMask & VSSlidingViewControllerAnchoredGestureDisabled)
+        {
+            topView.userInteractionEnabled = NO;
+        }
+        else
+        {
+            self.gestureView.frame = topView.frame;
+            
+            if ((_topViewAnchoredGestureMask & VSSlidingViewControllerAnchoredGesturePanning) &&
+                ([self.customAnchoredGestureViewMap objectForKey: self.panGesture]))
+            {
+                //TO-DO: ??
+                [self.customAnchoredGestureViewMap setObject: self.panGesture.view forKey: self.panGesture];
+                [self.panGesture.view removeGestureRecognizer: self.panGesture];
+                
+                [self.gestureView addGestureRecognizer: self.panGesture];
+            }
+            
+            if ((_topViewAnchoredGestureMask & VSSlidingViewControllerAnchoredGestureTapping) &&
+                ([self.customAnchoredGestureViewMap objectForKey: self.resettingTapGesture]))
+            {
+                [self.gestureView addGestureRecognizer: self.resettingTapGesture];
+            }
+            
+            if (_topViewAnchoredGestureMask & VSSlidingViewControllerAnchoredGestureCustom)
+            {
+                for (UIGestureRecognizer* customGesture in self.customAnchoredGestureArray)
+                {
+                    if ([self.customAnchoredGestureViewMap objectForKey: customGesture])
+                    {
+                        [self.customAnchoredGestureViewMap setObject: customGesture.view forKey: customGesture];
+                        [customGesture.view removeGestureRecognizer: customGesture];
+                        
+                        [self.gestureView addGestureRecognizer: customGesture];
+                    }
+                }
+            }
+            
+            if (_topViewAnchoredGestureMask != VSSlidingViewControllerAnchoredGestureNone)
+            {
+                if (!self.gestureView.superview)
+                    [self.view insertSubview: self.gestureView aboveSubview: topView];
+            }
+        }
+    }
+    else
+    {
+        topView.userInteractionEnabled = YES;
+        
+        [self.gestureView removeFromSuperview];
+        
+        for (UIGestureRecognizer* customGesture in  self.customAnchoredGestureArray)
+        {
+            UIView* originView = [self.customAnchoredGestureViewMap objectForKey: customGesture];
+            
+            if (originView && [originView isDescendantOfView: topView])
+            {
+                [originView addGestureRecognizer: customGesture];
+            }
+        }
+        
+        UIView* originPanView = [self.customAnchoredGestureViewMap objectForKey: self.panGesture];
+        if (originPanView && [originPanView isDescendantOfView: topView])
+        {
+            [originPanView addGestureRecognizer: self.panGesture];
+        }
+        
+        [self.customAnchoredGestureViewMap removeAllObjects];
+    }
 }
 
 @end

@@ -36,23 +36,15 @@
     
     if (self.isUnwinding)
     {
-        if ([slidingViewController.underViewController isMemberOfClass: [destinationViewController class]])
+        //TO-DO: ??
+        //if (slidingViewController.leftSlideViewController isMemberOfClass: [destinationViewController class])
+        if (slidingViewController.leftSlideViewController == destinationViewController)
         {
-            switch (slidingViewController.anchorPosition)
-            {
-                case VSSlidingViewControllerAnchorPositionLeft:
-                    [slidingViewController anchorTopViewToRightAnimated: YES];
-                    
-                    break;
-                    
-                case VSSlidingViewControllerAnchorPositionRight:
-                    [slidingViewController anchorTopViewToLeftAnimated: YES];
-                    
-                    break;
-                    
-                default:
-                    break;
-            }
+            [slidingViewController anchorTopViewToRightAnimated: YES];
+        }
+        else if (slidingViewController.rightSlideViewController == destinationViewController)
+        {
+            [slidingViewController anchorTopViewToLeftAnimated: YES];
         }
     }
     else

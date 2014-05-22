@@ -10,4 +10,5 @@
 
 
 NSString* const kVSTransitionContextTopViewControllerKey = @"kVSTransitionContextTopViewControllerKey";
-NSString* const kVSTransitionContextUnderViewControllerKey = @"kVSTransitionContextUnderViewControllerKey";
+NSString* const kVSTransitionContextLeftSlideViewControllerKey = @"kVSTransitionContextLeftSlideViewControllerKey";
+NSString* const kVSTransitionContextRightSlideViewControllerKey = @"kVSTransitionContextRightSlideViewControllerKey";

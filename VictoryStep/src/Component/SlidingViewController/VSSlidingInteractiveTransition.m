@@ -17,7 +17,7 @@
 @property (nonatomic, assign) BOOL isFromLeftToRight;
 @property (nonatomic, assign) CGFloat fullWidth;
 
-@property (nonatomic, copy) void (^coordinatorInterationEnded)(id<UIViewControllerTransitionCoordinatorContext> context);
+@property (nonatomic, copy) void (^coordinatorInteractionEnded)(id<UIViewControllerTransitionCoordinatorContext> context);
 
 @end
 
@@ -105,8 +105,8 @@
         {
             BOOL isPanningToRight = (velocityX > 0);
             
-            if (self.coordinatorInterationEnded)
-                self.coordinatorInterationEnded((id<UIViewControllerTransitionCoordinatorContext>)self.slidingViewController);
+            if (self.coordinatorInteractionEnded)
+                self.coordinatorInteractionEnded((id<UIViewControllerTransitionCoordinatorContext>)self.slidingViewController);
             
             if (isPanningToRight == self.isFromLeftToRight)
                 [self finishInteractiveTransition];

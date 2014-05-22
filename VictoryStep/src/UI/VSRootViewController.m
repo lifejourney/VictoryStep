@@ -8,12 +8,15 @@
 
 #import "VSRootViewController.h"
 #import "VSSlidingViewController.h"
+#import "VSMainMenuViewController.h"
 
 
 @interface VSRootViewController ()
 
 @property (nonatomic, strong) VSSlidingViewController* slidingViewController;
-@property (nonatomic, strong) UIViewController* slidingTopViewController;
+@property (nonatomic, strong) UINavigationController* navController;
+@property (nonatomic, strong) UIViewController* mainMenuViewController;
+@property (nonatomic, strong) UIViewController* contentViewController;
 
 @end
 
@@ -23,12 +26,24 @@
 {
     if (self = [super init])
     {
-        self.slidingTopViewController = [[UIViewController alloc] init];
-        self.slidingTopViewController.view.backgroundColor = [UIColor redColor];
-        self.slidingViewController = [[VSSlidingViewController alloc] initWithTopViewController: self.slidingTopViewController];
+        self.contentViewController = [[UIViewController alloc] init];
+        self.contentViewController.view.backgroundColor = [UIColor orangeColor];
+        self.contentViewController.title = @"Hello";
+        UIBarButtonItem* leftItem = [[UIBarButtonItem alloc] initWithTitle: @"Menu" style: UIBarButtonItemStyleBordered target: self action: @selector(onMainMenuClick:)];
+        self.contentViewController.navigationItem.leftBarButtonItem = leftItem;
         
-        [self addChildViewController: self.slidingViewController];
-        [self.view addSubview: self.slidingViewController.view];
+        self.navController = [[UINavigationController alloc] initWithRootViewController: self.contentViewController];
+        self.navController.navigationBar.backgroundColor = [UIColor greenColor];
+        //[self.navController.navigationBar setHidden: YES];
+        
+        self.mainMenuViewController = [[UIViewController alloc] init];
+        self.mainMenuViewController.view.backgroundColor = [UIColor redColor];
+        
+        self.slidingViewController = [[VSSlidingViewController alloc] init];
+        self.slidingViewController.leftSlideViewController = self.mainMenuViewController;
+        [self.navController.view addGestureRecognizer: self.slidingViewController.panGesture];
+        self.slidingViewController.topViewController = self.navController;
+        //self.slidingViewController.topViewAnchoredGestureMask = (VSSlidingViewControllerAnchoredGesturePanning | VSSlidingViewControllerAnchoredGestureTapping);
     }
     
     return self;
@@ -38,7 +53,6 @@
 {
     [super loadView];
     
-    
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
@@ -46,6 +60,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self addChildViewController: self.slidingViewController];
+    [self.view addSubview: self.slidingViewController.view];
 }
 
 - (void) viewWillAppear: (BOOL)animated
@@ -58,4 +75,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - target action
+
+- (void) onMainMenuClick: (NSObject*)sender
+{
+    [self.slidingViewController anchorTopViewToRightAnimated: YES];
+}
 @end

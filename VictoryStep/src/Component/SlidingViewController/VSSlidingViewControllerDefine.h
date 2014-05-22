@@ -8,13 +8,8 @@
 
 
 UIKIT_EXTERN NSString* const kVSTransitionContextTopViewControllerKey;
-UIKIT_EXTERN NSString* const kVSTransitionContextUnderViewControllerKey;
+UIKIT_EXTERN NSString* const kVSTransitionContextLeftSlideViewControllerKey;
 
-typedef NS_ENUM(NSInteger, VSSlidingViewControllerAnchorPosition)
-{
-    VSSlidingViewControllerAnchorPositionLeft,
-    VSSlidingViewControllerAnchorPositionRight
-};
 
 typedef NS_ENUM(NSInteger, VSSlidingViewControllerTopViewPosition)
 {
