@@ -10,6 +10,10 @@
 
 @interface VSMainMenuViewController ()
 
+@property (nonatomic, strong) NSArray* menuSectionArray;
+@property (nonatomic, strong) NSArray* itemByTagArray;
+@property (nonatomic, strong) NSArray* itemByCategoryArray;
+
 @end
 
 @implementation VSMainMenuViewController
@@ -26,6 +30,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.menuSectionArray = @[@"Category", @"Tag"];
+    self.itemByCategoryArray = @[@"Cycle", @"Once"];
+    self.itemByTagArray = @[@"Project", @"Health", @"Touch"];
+    
+    self.tableView.sectionHeaderHeight = 50;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -44,28 +54,60 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return [self.menuSectionArray count];
+}
+
+- (NSString*) tableView: (UITableView *)tableView titleForHeaderInSection: (NSInteger)section
+{
+    return [self.menuSectionArray objectAtIndex: section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    NSInteger count = 0;
+    
+    if (section < [self.menuSectionArray count])
+    {
+        NSString* sectionName = [self.menuSectionArray objectAtIndex: section];
+        
+        if ([sectionName isEqualToString: @"Category"])
+            count = [self.itemByCategoryArray count];
+        else if ([sectionName isEqualToString: @"Tag"])
+            count = [self.itemByTagArray count];
+    }
+    
+    return count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    CGRect frame = CGRectZero;
+    frame.size.height = 40;
+    frame.size.width = self.view.frame.size.width;
     
-    // Configure the cell...
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame: frame];
     
+    switch (indexPath.section)
+    {
+        case 0:
+            cell.textLabel.text = [self.itemByCategoryArray objectAtIndex: indexPath.row];
+            break;
+            
+        case 1:
+            cell.textLabel.text = [self.itemByTagArray objectAtIndex: indexPath.row];
+            break;
+            
+        default:
+            break;
+    }
+        
     return cell;
 }
-*/
+
+- (CGFloat) tableView: (UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    return 20;
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -105,15 +147,6 @@
 }
 */
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+#pragma mark - Table view delegate
 
 @end

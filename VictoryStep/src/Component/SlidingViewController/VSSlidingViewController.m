@@ -754,14 +754,14 @@
     return frame;
 }
 
-- (CGRect) adjustForExtendedLayoutWithLayoutGuide: (CGRect)rect
+- (CGRect) adjustFrame: (CGRect)rect ForExtendedLayout: (UIRectEdge)extendedLayout
 {
     //TO-DO: Take care of edgesForExtendedLayout status, and recaculate with xxxLayoutGuide
     //TO-DO: Here only consider for AnchorLeft and AnchorRight, but not for AnchorTop and AnchorBottom
     
     CGRect frame = rect;
     
-    if (!(self.edgesForExtendedLayout & UIRectEdgeTop))
+    if (!(extendedLayout & UIRectEdgeTop))
     {
         CGFloat topLayoutGuideLength = [self.topLayoutGuide length];
         
@@ -769,7 +769,7 @@
         frame.size.height -= topLayoutGuideLength;
     }
     
-    if (!(self.edgesForExtendedLayout & UIRectEdgeBottom))
+    if (!(extendedLayout & UIRectEdgeBottom))
     {
         CGFloat bottomLayoutGuideLength = [self.bottomLayoutGuide length];
         
@@ -784,7 +784,7 @@
 {
     CGRect frame = self.view.bounds;
     
-    frame = [self adjustForExtendedLayoutWithLayoutGuide: frame];
+    frame = [self adjustFrame: frame ForExtendedLayout: self.topViewController.edgesForExtendedLayout];
     
     switch (position)
     {
@@ -812,7 +812,7 @@
 {
     CGRect frame = self.view.bounds;
     
-    frame = [self adjustForExtendedLayoutWithLayoutGuide: frame];
+    frame = [self adjustFrame: frame ForExtendedLayout: self.leftSlideViewController.edgesForExtendedLayout];
     
     if (position != VSSlidingViewControllerTopViewPositionAnchoredRight)
     {
@@ -828,7 +828,7 @@
 {
     CGRect frame = self.view.bounds;
     
-    frame = [self adjustForExtendedLayoutWithLayoutGuide: frame];
+    frame = [self adjustFrame: frame ForExtendedLayout: self.rightSlideViewController.edgesForExtendedLayout];
     
     if (position == VSSlidingViewControllerTopViewPositionAnchoredLeft)
     {

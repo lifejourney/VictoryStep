@@ -15,7 +15,7 @@
 
 @property (nonatomic, strong) VSSlidingViewController* slidingViewController;
 @property (nonatomic, strong) UINavigationController* navController;
-@property (nonatomic, strong) UIViewController* mainMenuViewController;
+@property (nonatomic, strong) VSMainMenuViewController* mainMenuViewController;
 @property (nonatomic, strong) UIViewController* contentViewController;
 
 @end
@@ -25,7 +25,7 @@
 - (instancetype) init
 {
     if (self = [super init])
-    {
+    {        
         self.contentViewController = [[UIViewController alloc] init];
         self.contentViewController.view.backgroundColor = [UIColor orangeColor];
         self.contentViewController.title = @"Hello";
@@ -36,8 +36,9 @@
         self.navController.navigationBar.backgroundColor = [UIColor greenColor];
         //[self.navController.navigationBar setHidden: YES];
         
-        self.mainMenuViewController = [[UIViewController alloc] init];
+        self.mainMenuViewController = [[VSMainMenuViewController alloc] init];
         self.mainMenuViewController.view.backgroundColor = [UIColor redColor];
+        self.mainMenuViewController.edgesForExtendedLayout = UIRectEdgeNone;
         
         self.slidingViewController = [[VSSlidingViewController alloc] init];
         self.slidingViewController.leftSlideViewController = self.mainMenuViewController;
