@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		431E4B1719343408009735CA /* VictorySteps.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 431E4B1519343408009735CA /* VictorySteps.xcdatamodeld */; };
 		434DAB41192C8D6700CA85A2 /* VSMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 434DAB3E192C8D6700CA85A2 /* VSMainMenuViewController.m */; };
 		434DAB42192C8D6700CA85A2 /* VSRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 434DAB40192C8D6700CA85A2 /* VSRootViewController.m */; };
+		436422FA193468C000C9F02C /* VSModelOccuredStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 436422F9193468C000C9F02C /* VSModelOccuredStep.m */; };
+		436422FD193468C000C9F02C /* VSModelStepSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 436422FC193468C000C9F02C /* VSModelStepSeries.m */; };
 		438102641918E65100F21042 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102631918E65100F21042 /* Foundation.framework */; };
 		438102661918E65100F21042 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102651918E65100F21042 /* CoreGraphics.framework */; };
 		438102681918E65100F21042 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438102671918E65100F21042 /* UIKit.framework */; };
@@ -28,6 +31,9 @@
 		43DD66001924C6BF002DD423 /* VSSlidingAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD65FF1924C6BF002DD423 /* VSSlidingAnimationController.m */; };
 		43DD66031925B682002DD423 /* VSPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD66021925B682002DD423 /* VSPercentDrivenInteractiveTransition.m */; };
 		43DD66061925DBF7002DD423 /* VSSlidingInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD66051925DBF7002DD423 /* VSSlidingInteractiveTransition.m */; };
+		43F004CE193469C30099B2B3 /* VSLocalStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F004CD193469C30099B2B3 /* VSLocalStorage.m */; };
+		43F004D019346A1C0099B2B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F004CF19346A1C0099B2B3 /* CoreData.framework */; };
+		43F0068519348DF20099B2B3 /* UIDevice+VSUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F0068419348DF20099B2B3 /* UIDevice+VSUtility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,10 +47,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		431E4B1619343408009735CA /* VictorySteps.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VictorySteps.xcdatamodel; sourceTree = "<group>"; };
 		434DAB3D192C8D6700CA85A2 /* VSMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSMainMenuViewController.h; sourceTree = "<group>"; };
 		434DAB3E192C8D6700CA85A2 /* VSMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSMainMenuViewController.m; sourceTree = "<group>"; };
 		434DAB3F192C8D6700CA85A2 /* VSRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSRootViewController.h; sourceTree = "<group>"; };
 		434DAB40192C8D6700CA85A2 /* VSRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSRootViewController.m; sourceTree = "<group>"; };
+		436422F8193468C000C9F02C /* VSModelOccuredStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSModelOccuredStep.h; sourceTree = "<group>"; };
+		436422F9193468C000C9F02C /* VSModelOccuredStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSModelOccuredStep.m; sourceTree = "<group>"; };
+		436422FB193468C000C9F02C /* VSModelStepSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSModelStepSeries.h; sourceTree = "<group>"; };
+		436422FC193468C000C9F02C /* VSModelStepSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSModelStepSeries.m; sourceTree = "<group>"; };
 		438102601918E65100F21042 /* VictoryStep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VictoryStep.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		438102631918E65100F21042 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		438102651918E65100F21042 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -75,6 +86,11 @@
 		43DD66021925B682002DD423 /* VSPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		43DD66041925DBF7002DD423 /* VSSlidingInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSSlidingInteractiveTransition.h; sourceTree = "<group>"; };
 		43DD66051925DBF7002DD423 /* VSSlidingInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSSlidingInteractiveTransition.m; sourceTree = "<group>"; };
+		43F004CC193469C30099B2B3 /* VSLocalStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSLocalStorage.h; sourceTree = "<group>"; };
+		43F004CD193469C30099B2B3 /* VSLocalStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSLocalStorage.m; sourceTree = "<group>"; };
+		43F004CF19346A1C0099B2B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		43F0068319348DF20099B2B3 /* UIDevice+VSUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+VSUtility.h"; sourceTree = "<group>"; };
+		43F0068419348DF20099B2B3 /* UIDevice+VSUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+VSUtility.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43F004D019346A1C0099B2B3 /* CoreData.framework in Frameworks */,
 				438102661918E65100F21042 /* CoreGraphics.framework in Frameworks */,
 				438102681918E65100F21042 /* UIKit.framework in Frameworks */,
 				438102641918E65100F21042 /* Foundation.framework in Frameworks */,
@@ -101,6 +118,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		431E4B1119341F8B009735CA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				431E4B1519343408009735CA /* VictorySteps.xcdatamodeld */,
+				436422F8193468C000C9F02C /* VSModelOccuredStep.h */,
+				436422F9193468C000C9F02C /* VSModelOccuredStep.m */,
+				436422FB193468C000C9F02C /* VSModelStepSeries.h */,
+				436422FC193468C000C9F02C /* VSModelStepSeries.m */,
+				43F004CC193469C30099B2B3 /* VSLocalStorage.h */,
+				43F004CD193469C30099B2B3 /* VSLocalStorage.m */,
+			);
+			name = Model;
+			path = src/Model;
+			sourceTree = "<group>";
+		};
 		438102571918E65100F21042 = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +155,7 @@
 		438102621918E65100F21042 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43F004CF19346A1C0099B2B3 /* CoreData.framework */,
 				438102631918E65100F21042 /* Foundation.framework */,
 				438102651918E65100F21042 /* CoreGraphics.framework */,
 				438102671918E65100F21042 /* UIKit.framework */,
@@ -137,6 +170,7 @@
 				43BE4F3D19236F5E00AF1BCA /* Component */,
 				43810299191CCA5800F21042 /* Category */,
 				43810298191CCA5100F21042 /* UI */,
+				431E4B1119341F8B009735CA /* Model */,
 				43810292191CC9CE00F21042 /* AppDelegate */,
 				438102751918E65100F21042 /* Images.xcassets */,
 				4381026A1918E65100F21042 /* Supporting Files */,
@@ -198,8 +232,11 @@
 		43810299191CCA5800F21042 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				43F0068319348DF20099B2B3 /* UIDevice+VSUtility.h */,
+				43F0068419348DF20099B2B3 /* UIDevice+VSUtility.m */,
 			);
 			name = Category;
+			path = src/Category;
 			sourceTree = "<group>";
 		};
 		43BE4F3D19236F5E00AF1BCA /* Component */ = {
@@ -336,10 +373,15 @@
 				43DD66031925B682002DD423 /* VSPercentDrivenInteractiveTransition.m in Sources */,
 				434DAB41192C8D6700CA85A2 /* VSMainMenuViewController.m in Sources */,
 				43DD653C1924511B002DD423 /* VSSlidingViewController.m in Sources */,
+				43F0068519348DF20099B2B3 /* UIDevice+VSUtility.m in Sources */,
 				43DD65FA1924BD9A002DD423 /* UIViewController+VSSlidingViewController.m in Sources */,
 				43810295191CC9FB00F21042 /* VSAppDelegate.m in Sources */,
+				436422FD193468C000C9F02C /* VSModelStepSeries.m in Sources */,
 				43DD653F19245128002DD423 /* VSSlidingViewControllerDefine.m in Sources */,
+				431E4B1719343408009735CA /* VictorySteps.xcdatamodeld in Sources */,
+				436422FA193468C000C9F02C /* VSModelOccuredStep.m in Sources */,
 				43DD66061925DBF7002DD423 /* VSSlidingInteractiveTransition.m in Sources */,
+				43F004CE193469C30099B2B3 /* VSLocalStorage.m in Sources */,
 				43DD65F61924BCBE002DD423 /* VSSlidingSegue.m in Sources */,
 				434DAB42192C8D6700CA85A2 /* VSRootViewController.m in Sources */,
 			);
@@ -419,6 +461,10 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"($SRC)/src/Component",
+					"($SRC)/src/Model",
+					"($SRC)/src/Category",
+					"($SRC)/src/AppDelegate",
+					"($SRC)/src/UI",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
@@ -457,6 +503,10 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"($SRC)/src/Component",
+					"($SRC)/src/Model",
+					"($SRC)/src/Category",
+					"($SRC)/src/AppDelegate",
+					"($SRC)/src/UI",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				SDKROOT = iphoneos;
@@ -478,6 +528,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -495,6 +546,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -570,6 +622,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		431E4B1519343408009735CA /* VictorySteps.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				431E4B1619343408009735CA /* VictorySteps.xcdatamodel */,
+			);
+			currentVersion = 431E4B1619343408009735CA /* VictorySteps.xcdatamodel */;
+			path = VictorySteps.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 438102581918E65100F21042 /* Project object */;
 }

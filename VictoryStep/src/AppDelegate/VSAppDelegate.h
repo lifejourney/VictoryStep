@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VSLocalStorage.h"
+
 
 @interface VSAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (nonatomic, strong, readonly) VSLocalStorage *localStorage;
 
 @end
