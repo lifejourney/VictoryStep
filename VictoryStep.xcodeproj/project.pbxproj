@@ -24,6 +24,7 @@
 		438102871918E65100F21042 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 438102851918E65100F21042 /* InfoPlist.strings */; };
 		438102891918E65100F21042 /* VictoryStepTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 438102881918E65100F21042 /* VictoryStepTests.m */; };
 		43810295191CC9FB00F21042 /* VSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 43810294191CC9FB00F21042 /* VSAppDelegate.m */; };
+		43927AF7193590C50028B6BC /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43927AF6193590C50028B6BC /* Common.xcassets */; };
 		43DD653C1924511B002DD423 /* VSSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD653B1924511B002DD423 /* VSSlidingViewController.m */; };
 		43DD653F19245128002DD423 /* VSSlidingViewControllerDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD653E19245128002DD423 /* VSSlidingViewControllerDefine.m */; };
 		43DD65F61924BCBE002DD423 /* VSSlidingSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD65F51924BCBE002DD423 /* VSSlidingSegue.m */; };
@@ -72,6 +73,7 @@
 		438102881918E65100F21042 /* VictoryStepTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VictoryStepTests.m; sourceTree = "<group>"; };
 		43810293191CC9FB00F21042 /* VSAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSAppDelegate.h; sourceTree = "<group>"; };
 		43810294191CC9FB00F21042 /* VSAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSAppDelegate.m; sourceTree = "<group>"; };
+		43927AF6193590C50028B6BC /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		43DD653A1924511B002DD423 /* VSSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSSlidingViewController.h; sourceTree = "<group>"; };
 		43DD653B1924511B002DD423 /* VSSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSSlidingViewController.m; sourceTree = "<group>"; };
 		43DD653D19245128002DD423 /* VSSlidingViewControllerDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSSlidingViewControllerDefine.h; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				431E4B1119341F8B009735CA /* Model */,
 				43810292191CC9CE00F21042 /* AppDelegate */,
 				438102751918E65100F21042 /* Images.xcassets */,
+				43927AF6193590C50028B6BC /* Common.xcassets */,
 				4381026A1918E65100F21042 /* Supporting Files */,
 			);
 			path = VictoryStep;
@@ -350,6 +353,7 @@
 			files = (
 				4381026E1918E65100F21042 /* InfoPlist.strings in Resources */,
 				438102761918E65100F21042 /* Images.xcassets in Resources */,
+				43927AF7193590C50028B6BC /* Common.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

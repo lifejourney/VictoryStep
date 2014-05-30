@@ -12,18 +12,36 @@
 
 @property (nonatomic, strong) NSArray* menuSectionArray;
 @property (nonatomic, strong) NSArray* itemByTagArray;
-@property (nonatomic, strong) NSArray* itemByCategoryArray;
+@property (nonatomic, strong) NSArray* itemInNewArray;
+@property (nonatomic, strong) NSArray* itemInViewArray;
+@property (nonatomic, strong) NSArray* itemInSettingArray;
+
+- (NSArray*) itemArrayForSection: (NSInteger)section;
 
 @end
 
 @implementation VSMainMenuViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype) initWithStyle: (UITableViewStyle)style
 {
-    self = [super initWithStyle:style];
-    if (self) {
+    if (self = [super initWithStyle: style])
+    {
         // Custom initialization
     }
+    return self;
+}
+
+- (instancetype) init
+{
+    if (self = [self initWithStyle: UITableViewStyleGrouped])
+    {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.tableView.allowsMultipleSelection = NO;
+        
+        self.view.backgroundColor = [UIColor clearColor];
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    
     return self;
 }
 
@@ -31,11 +49,11 @@
 {
     [super viewDidLoad];
     
-    self.menuSectionArray = @[@"Category", @"Tag"];
-    self.itemByCategoryArray = @[@"Cycle", @"Once"];
-    self.itemByTagArray = @[@"Project", @"Health", @"Touch"];
+    self.menuSectionArray = @[@"New", @"View", @"Setting"];
+    self.itemInNewArray = @[@"Task"];
+    self.itemInViewArray = @[@"Tasks", @"Steps"];
+    self.itemInSettingArray = @[@"Setting"];
     
-    self.tableView.sectionHeaderHeight = 50;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -64,49 +82,26 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger count = 0;
+    NSArray *itemArray = [self itemArrayForSection: section];
     
-    if (section < [self.menuSectionArray count])
-    {
-        NSString* sectionName = [self.menuSectionArray objectAtIndex: section];
-        
-        if ([sectionName isEqualToString: @"Category"])
-            count = [self.itemByCategoryArray count];
-        else if ([sectionName isEqualToString: @"Tag"])
-            count = [self.itemByTagArray count];
-    }
-    
-    return count;
+    return itemArray ? [itemArray count] : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGRect frame = CGRectZero;
-    frame.size.height = 40;
     frame.size.width = self.view.frame.size.width;
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame: frame];
     
-    switch (indexPath.section)
-    {
-        case 0:
-            cell.textLabel.text = [self.itemByCategoryArray objectAtIndex: indexPath.row];
-            break;
-            
-        case 1:
-            cell.textLabel.text = [self.itemByTagArray objectAtIndex: indexPath.row];
-            break;
-            
-        default:
-            break;
-    }
+    NSArray *itemArray = [self itemArrayForSection: indexPath.section];
+    
+    cell.textLabel.text = itemArray ? [itemArray objectAtIndex: indexPath.row] : @"";
+    
+    if (itemArray != _itemInNewArray)
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
     return cell;
-}
-
-- (CGFloat) tableView: (UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath
-{
-    return 20;
 }
 
 /*
@@ -145,8 +140,51 @@
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
-*/
+ */
 
 #pragma mark - Table view delegate
+
+- (CGFloat) tableView: (UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    return 20;
+}
+
+- (void) tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    NSArray *itemArray = [self itemArrayForSection: indexPath.section];
+    
+    if (self.delegate && [self.delegate respondsToSelector: @selector(mainMenuViewController:didSelectedItemType:selectedItem:)])
+    {
+        [self.delegate mainMenuViewController: self didSelectedItemType:<#(VSMainMenuItemType)#> selectedItem:<#(id)#>]
+    }
+}
+
+#pragma mark - Private
+
+- (NSArray*) itemArrayForSection: (NSInteger)section
+{
+    NSArray *itemArray;
+    
+    switch (section)
+    {
+        case 0:
+            itemArray = _itemInNewArray;
+            break;
+            
+        case 1:
+            itemArray = _itemInViewArray;
+            break;
+            
+        case 2:
+            itemArray = _itemInSettingArray;
+            break;
+            
+        default:
+            itemArray = nil;
+            break;
+    }
+    
+    return itemArray;
+}
 
 @end

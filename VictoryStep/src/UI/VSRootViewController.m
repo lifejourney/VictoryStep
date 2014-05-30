@@ -29,7 +29,11 @@
         self.contentViewController = [[UIViewController alloc] init];
         self.contentViewController.view.backgroundColor = [UIColor orangeColor];
         self.contentViewController.title = @"Hello";
-        UIBarButtonItem* leftItem = [[UIBarButtonItem alloc] initWithTitle: @"Menu" style: UIBarButtonItemStyleBordered target: self action: @selector(onMainMenuClick:)];
+        UIBarButtonItem* leftItem = [[UIBarButtonItem alloc] initWithTitle: @" " style: UIBarButtonItemStylePlain target: self action: @selector(onMainMenuClick:)];
+        UIImage *mainMenuBackgroundImage = [UIImage imageNamed: @"MainMenu_Normal"];
+        [leftItem setBackgroundImage: mainMenuBackgroundImage
+                            forState: UIControlStateNormal
+                          barMetrics: UIBarMetricsDefault];
         self.contentViewController.navigationItem.leftBarButtonItem = leftItem;
         
         self.navController = [[UINavigationController alloc] initWithRootViewController: self.contentViewController];
@@ -37,10 +41,10 @@
         //[self.navController.navigationBar setHidden: YES];
         
         self.mainMenuViewController = [[VSMainMenuViewController alloc] init];
-        self.mainMenuViewController.view.backgroundColor = [UIColor redColor];
-        self.mainMenuViewController.edgesForExtendedLayout = UIRectEdgeNone;
         
         self.slidingViewController = [[VSSlidingViewController alloc] init];
+        self.slidingViewController.fixedLeftSlideViewLengthIfCentered = 200;
+        //self.slidingViewController.fixedLeftSlideViewLengthIfAnchored = 20;
         self.slidingViewController.leftSlideViewController = self.mainMenuViewController;
         [self.navController.view addGestureRecognizer: self.slidingViewController.panGesture];
         self.slidingViewController.topViewController = self.navController;
